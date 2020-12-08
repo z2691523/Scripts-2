@@ -1,0 +1,85 @@
+# 快手视频刷金币测试，抓包获取secrets
+2
+​
+3
+name: 快手视频
+4
+​
+5
+on:
+6
+  workflow_dispatch:
+7
+  schedule:
+8
+     - cron: '*/30 * * * *'
+9
+  watch:
+10
+    types: started
+11
+jobs:
+12
+  build:
+13
+    runs-on: ubuntu-latest
+14
+    if: github.event.repository.owner.id == github.event.sender.id
+15
+    env:
+16
+        KUAISHOUMV: ${{ secrets.KUAISHOUMV }}
+17
+        TZ: Asia/shanghai
+18
+    steps:
+19
+      - name: Checkout
+20
+        run: |
+21
+          git clone https://github.com/Sunert/Scripts.git ~/Scripts
+22
+      - name: Use Node.js 12.x
+23
+        uses: actions/setup-node@v1
+24
+        with:
+25
+          node-version: 12.x
+26
+      - name: npm install
+27
+        run: |
+28
+          cd ~/Scripts
+29
+          npm install
+30
+      - name: '运行 【快手视频】'
+31
+        if: env.KUAISHOUMV
+32
+        run: |
+33
+          cd ~/Scripts
+34
+          node Task/Auto_Kuaishou.js
+35
+        env:
+36
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+37
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+38
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+39
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+40
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+41
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+42
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+43
+​
