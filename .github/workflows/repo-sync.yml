@@ -48,7 +48,7 @@ jobs:
 
           source_repo: "https://github.com/Sunert/Script/tree/master"
 
-          source_branch: "main"
+          source_branch: "master"
 
           destination_branch: "main"
 
